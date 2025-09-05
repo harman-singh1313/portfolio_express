@@ -95,9 +95,15 @@
                         <form id="contact-form" action="/submit-contact" method="POST" class="row">
                             <div class="col-12 col-md-6">
                                 <label class="text-sm fw-normal font-Inter leading-tight mb-3 d-block"
-                                    for="name">Name</label>
+                                    for="name">First name</label>
                                 <input id="name" class="fw-normal w-full leading-7 contact-form-control " type="text"
-                                    placeholder="Your name*" name="name">
+                                    placeholder="Your name*" name="First_name">
+                            </div>
+                             <div class="col-12 col-md-6">
+                                <label class="text-sm fw-normal font-Inter leading-tight mb-3 d-block"
+                                    for="name">Last name</label>
+                                <input id="name" class="fw-normal w-full leading-7 contact-form-control " type="text"
+                                    placeholder="Your name*" name="Last_name">
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="text-sm fw-normal font-Inter leading-tight mb-3 d-block"
@@ -113,18 +119,12 @@
                             </div>
                             <div class="col-12 col-md-6">
                                 <label class="text-sm fw-normal font-Inter leading-tight mb-3 d-block"
-                                    for="Subject">Subject*</label>
+                                    for="password">password</label>
                                 <input id="Subject" class="fw-normal w-full leading-7 contact-form-control " type="text"
-                                    placeholder="Your subject*" name="subject">
+                                    placeholder="password" name="password">
                             </div>
 
-                            <div class="col-12">
-                                <label class="text-sm fw-normal font-Inter leading-tight mb-3 d-block"
-                                    for="Message">Message</label>
-                                <textarea class="fw-normal w-full contact-form-control resize-none" name="message"
-                                    id="Message" cols="30" rows="10" placeholder="Type your message"></textarea>
-                            </div>
-
+                           
 
                             <div class="col-12">
                                 <button class="d-flex align-items-center flex-wrap btn-primary" type="submit">Submit
