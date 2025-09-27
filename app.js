@@ -2,26 +2,27 @@ const path= require('path');
 const port= 3200;
 const express= require('express');
 const app= express();
-// const dotenv= require('dotenv');
-// dotenv.config();
 
+// Middleware
+app.use(express.urlencoded({extended:true}));  
+app.use(express.json());  
 
-//=============== jo data form dey ata ha use samjne key liye en middleware ka use hota ha
-
-app.use(express.urlencoded({extended:true}));  //Ye middleware HTML forms ke through bheje gaye data ko parse karta hai.
-app.use(express.json());   // Ye middleware JSON formatted data ko parse karta hai.
-
-//==== Es middleware sey sare static files uth jae ge jase hmare css,js or jo be file esmey pade ha
-
+//static files
 app.use(express.static(path.join(__dirname,'public')));
 
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 
+// Routes
 const siteRouters= require('./routers/site.routes');
 app.use('/',siteRouters);
 
+// 404 handler
+app.use((req, res) => {
+  res.status(404).send('Route not found');
+});
 
+// Start server
 
 app.listen(port,()=>{
     console.log(`server is running at http://127.0.0.1:${port}`);

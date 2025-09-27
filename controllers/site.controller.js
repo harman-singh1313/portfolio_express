@@ -1,9 +1,12 @@
 const{MongoClient}=require('mongodb')
 require("dotenv").config();
+const path= require('path');
+const ejs= require('ejs')
 const uri= process.env.MONGODB_URI;
 //create new object
 const client= new MongoClient(uri);
 const nodemailer= require('nodemailer');
+const { title } = require('process');
 
 
 function renderPage(res, viewName, title) {
@@ -30,13 +33,13 @@ exports.submitContact= async(req,res,next)=>{
                           + currentdate.getSeconds();
 
    const data={First_name:First_name,Last_name:Last_name,email:email,phone:phone,password:password,addon:datetime}
-  client.connect();
-  client.db('portfolioDB').command({ping:1});
+   await client.connect();
+   await client.db('portfolioDB').command({ping:1});
   console.log('mongodb connected succesfuly')
 
   const database= client.db('portfolioDB');
   const myCollection= database.collection("Users");
-  const result= myCollection.insertOne(data);
+  const result= await myCollection.insertOne(data);
     console.log(
             `A document was inserted with the _id: ${result.insertedId}`,
             );
@@ -54,13 +57,15 @@ exports.submitContact= async(req,res,next)=>{
   },
 });
 
-
+const  file_path= path.join(__dirname,'../views/pages/Template_email.ejs')
+ const email_template= await ejs.renderFile(file_path,{title:'template'})
 
   const send_Mail= {
     from:process.env.SMTP_USER,
     to:email,
     subject:'reaching using',
-    text:'we will contect you soon'
+    text:'we will contect you soon',
+    html:email_template
   };
 
  await transporter.sendMail(send_Mail)
